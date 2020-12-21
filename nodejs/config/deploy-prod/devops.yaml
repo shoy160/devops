@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-name-v1
+  namespace: ns-name
+  labels:
+    app: deploy-name
+    app.kubernetes.io/name: app-name
+    app.kubernetes.io/version: v1
+    version: v1
+  annotations:
+    kubesphere.io/description: 'deploy-desc'
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: deploy-name
+      app.kubernetes.io/name: app-name
+      app.kubernetes.io/version: v1
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: deploy-name
+        app.kubernetes.io/name: app-name
+        app.kubernetes.io/version: v1
+        version: v1
+      annotations:
+        kubesphere.io/containerSecrets: '{"deploy-name":"harbor"}'
+    spec:
+      containers:
+        - image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:$TAG_NAME
+          imagePullPolicy: Always
+          name: deploy-name
+          ports:
+            - containerPort: 80
+              name: tcp-80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1000Mi
+            requests:
+              cpu: 10m
+              memory: 10Mi          
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+        - name: harbor
