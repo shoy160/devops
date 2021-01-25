@@ -13,10 +13,10 @@ pipeline {
     environment {
         DOCKER_CREDENTIAL_ID = 'harbor-id'
         REGISTRY = 'hub.app-chengdu1.yunzhicloud.com'        
-        DOCKERHUB_NAMESPACE = 'xxx'
-        APP_NAME = 'xxx-xxx'
+        DOCKERHUB_NAMESPACE = '${hub-group}'
+        APP_NAME = '${image-name}'
         GITLAB_CREDENTIAL_ID = 'gitlab-id'
-        GIT_URL = 'gitlab.yunzhicloud.com/xxx/xxx-xxx.git'   
+        GIT_URL = 'gitlab.yunzhicloud.com/${git-group}/${git-name}.git'   
         GIT_EMAIL = 'devops@yzcloud.com'
         KUBECONFIG_CREDENTIAL_ID = 'kube-id'
     }

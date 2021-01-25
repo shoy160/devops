@@ -2,11 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: deploy-name
-    app.kubernetes.io/name: app-name
+    app: ${deploy-name}
+    app.kubernetes.io/name: ${app-name}
     app.kubernetes.io/version: v1
-  name: deploy-name
-  namespace: ns-name
+  name: ${deploy-name}
+  namespace: ${ns-name}
 spec:
   ports:
     - name: tcp-8080
@@ -14,8 +14,8 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: deploy-name
-    app.kubernetes.io/name: app-name
+    app: ${deploy-name}
+    app.kubernetes.io/name: ${app-name}
     app.kubernetes.io/version: v1
   sessionAffinity: None
   type: ClusterIP

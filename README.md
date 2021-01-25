@@ -4,10 +4,19 @@ devops config
 
 ### config deploy 占位符说明
 ```
-ns-name: KS项目名称
-app-name：KS应用名称
-deploy-name：工作负载名称
-deploy-desc：工作负载描述
+# jenkinsfile
+
+${hub-group}：镜像仓库项目名称
+${image-name}：镜像名称
+${git-group}：gitlab分组
+${git-name}：gitlab项目名称
+
+# deploy
+${ns-name}: KS项目名称
+${app-name}：KS应用名称
+${deploy-name}：工作负载名称
+${deploy-desc}：工作负载描述
+
 ```
 
 ### devops工程创建步骤
