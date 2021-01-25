@@ -109,7 +109,7 @@ def make_devops(cnf):
     if confirm == 'y':
         # dir = cnf['type']
         # copy
-        devops_name = str(random.randint(1000, 10000))
+        devops_name = '%s_%d' % (cnf['type'], random.randint(1000, 10000))
         source_dir = os.path.abspath(cnf['type'])
         devops_dir = os.path.abspath(devops_name)
         shutil.copytree(source_dir, devops_dir)
