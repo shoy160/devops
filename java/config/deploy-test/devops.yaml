@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/version: v1
     version: v1
   annotations:
-    kubesphere.io/description: 'deploy-desc'
+    kubesphere.io/description: "deploy-desc"
 spec:
   progressDeadlineSeconds: 600
   replicas: 2
@@ -52,25 +52,41 @@ spec:
               cpu: 10m
               memory: 10Mi
           livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
+            tcpSocket:
               port: 8080
-              scheme: HTTP
             initialDelaySeconds: 120
             timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
           readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
+            tcpSocket:
               port: 8080
-              scheme: HTTP
             initialDelaySeconds: 100
             timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health/liveness
+          #     port: 8080
+          #     scheme: HTTP
+          #   initialDelaySeconds: 120
+          #   timeoutSeconds: 1
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /actuator/health/readiness
+          #     port: 8080
+          #     scheme: HTTP
+          #   initialDelaySeconds: 100
+          #   timeoutSeconds: 1
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   failureThreshold: 3
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
