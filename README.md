@@ -3,6 +3,7 @@
 devops config
 
 ### config deploy 占位符说明
+
 ```
 # jenkinsfile
 
@@ -19,7 +20,8 @@ ${deploy-desc}：工作负载描述
 
 ```
 
-### devops工程创建步骤
+### devops 工程创建步骤
+
 ```
 1. 创建凭证
 harbor-id：harbor账号密码
@@ -29,7 +31,9 @@ kube-id：kubeconfig
 3. 将本项目对应的文件，拷贝到项目根目录，替换相应的占位符，提交代码
 4. 扫描远程分支
 ```
+
 ### 项目相关准备
+
 ```
 1. 创建私有仓库harbor
 
@@ -45,4 +49,13 @@ kube-id：kubeconfig
     -Xmn120m -Xms256m -Xmx1500m -XX:MaxMetaspaceSize=128m
     -XX:CompressedClassSpaceSize=24m
   JAVA_OPTS_SM: '-Xms64m -Xmx384m -XX:MaxMetaspaceSize=128m -XX:CompressedClassSpaceSize=24m'
+```
+
+### 工具使用
+
+```
+# Windows
+> devops.exe
+# 根据提示输入
+
 ```

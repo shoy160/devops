@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ${deploy-name}-v1
-  namespace: ${ns-name}
+  namespace: ${ns-name-prod}
   labels:
     app: ${deploy-name}
     app.kubernetes.io/name: ${app-name}
