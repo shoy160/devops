@@ -112,6 +112,9 @@ def make_devops(cnf):
         devops_name = '%s_%d' % (cnf['type'], random.randint(1000, 10000))
         source_dir = os.path.abspath(cnf['type'])
         devops_dir = os.path.abspath(devops_name)
+        if not os.path.exists(source_dir):
+            source_dir = os.path.abspath('../'+cnf['type'])
+            devops_dir = os.path.abspath('../'+devops_name)
         shutil.copytree(source_dir, devops_dir)
         print('copy files to %s' % devops_name)
         # 替换字符
