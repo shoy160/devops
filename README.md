@@ -27,6 +27,8 @@ ${deploy-desc}：工作负载描述
 harbor-id：harbor账号密码
 gitlab-id：gitlab账号密码
 kube-id：kubeconfig
+# 部分多集群项目需要额外添加
+prod-kube-id: kubeconfig
 2. 创建DevOps工程
 3. 将本项目对应的文件，拷贝到项目根目录，替换相应的占位符，提交代码
 4. 扫描远程分支

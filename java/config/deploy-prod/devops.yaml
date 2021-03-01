@@ -39,22 +39,19 @@ spec:
               name: tcp-8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              valueFrom:
-                configMapKeyRef:
-                  name: jvm
-                  key: JAVA_OPTS
+            - name: YZ_MODE
+              value: prod
           resources:
             limits:
-              cpu: 1000m
+              cpu: 1500m
               memory: 2000Mi
             requests:
-              cpu: 10m
-              memory: 10Mi          
+              cpu: 30m
+              memory: 30Mi          
           livenessProbe:
             tcpSocket:
               port: 8080
-            initialDelaySeconds: 120
+            initialDelaySeconds: 50
             timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
@@ -62,7 +59,7 @@ spec:
           readinessProbe:
             tcpSocket:
               port: 8080
-            initialDelaySeconds: 100
+            initialDelaySeconds: 30
             timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
@@ -72,7 +69,7 @@ spec:
           #     path: /actuator/health/liveness
           #     port: 8080
           #     scheme: HTTP
-          #   initialDelaySeconds: 120
+          #   initialDelaySeconds: 50
           #   timeoutSeconds: 1
           #   periodSeconds: 10
           #   successThreshold: 1
@@ -82,7 +79,7 @@ spec:
           #     path: /actuator/health/readiness
           #     port: 8080
           #     scheme: HTTP
-          #   initialDelaySeconds: 100
+          #   initialDelaySeconds: 30
           #   timeoutSeconds: 1
           #   periodSeconds: 10
           #   successThreshold: 1

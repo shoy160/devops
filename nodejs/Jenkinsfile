@@ -19,6 +19,7 @@ pipeline {
         GIT_URL = 'gitlab.yunzhicloud.com/${git-group}/${git-name}.git'   
         GIT_EMAIL = 'devops@yzcloud.com'
         KUBECONFIG_CREDENTIAL_ID = 'kube-id'
+        PROD_KUBECONFIG_CREDENTIAL_ID = 'prod-kube-id'
     }
 
     stages {
