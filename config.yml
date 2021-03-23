@@ -1,0 +1,21 @@
+devops:
+  dockers:
+    - key: community
+      value: 智慧社区
+    - key: i-town
+      value: 智慧城市
+    - key: hainan
+      value: 海南环岛
+    - key: d-net
+      value: 数据通信
+    - key: idc
+      value: IDC业务
+    - key: yzworld
+      value: 云智天下
+    - key: yzcloud
+      value: 云智云
+  projects:
+    - key: ztj-test
+      value: 中铁建
+    - key: ztj-test
+      value: 中铁建

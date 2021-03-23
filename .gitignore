@@ -32,3 +32,4 @@ log/
 .vscode/
 __pycache__
 *.spec
+_temp
