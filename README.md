@@ -60,4 +60,31 @@ prod-kube-id: kubeconfig
 > devops.exe
 # 根据提示输入
 
+# 镜像打包
+> go get -u -v github.com/goreleaser/goreleaser
+> goreleaser --snapshot --skip-publish --rm-dist
+> SET CGO_ENABLED=0
+> SET GOOS=linux
+> SET GOARCH=amd64
+> go build -o devops main.go
+
+> cd fed
+> yarn build
+
+> cat Dockerfile
+FROM alpine
+WORKDIR /publish
+ADD ./devops .
+ADD ./template/java/. ./template/java/
+ADD ./template/nodejs/. ./template/nodejs/
+ADD ./fed/dist/. ./dist/
+
+ENV GIN_MODE=release
+EXPOSE 8080
+
+ENTRYPOINT [ "./devops" ]
+
+# Web地址
+https://template.app-chengdu1.yunzhicloud.com/devops/
+
 ```
