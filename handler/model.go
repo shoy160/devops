@@ -37,5 +37,5 @@ type DevOps struct {
 	Project    string `json:"project" binding:"required" description:"项目名称"`
 	App        string `json:"app" binding:"required" description:"应用名称"`
 	Workload   string `json:"workload" binding:"required" description:"工作负载名称"`
-	Desc       string `json:"desc" binding:"required" description:"工作负载描述"`
+	Desc       string `json:"desc" description:"工作负载描述"`
 }

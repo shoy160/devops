@@ -12,14 +12,36 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Cors() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		origin := c.Request.Header.Get("Origin")
+		if origin == "" {
+			origin = c.Request.Header.Get("Referer")
+		}
+		c.Writer.Header().Add("Access-Control-Allow-Origin", origin) // 可将将 * 替换为指定的域名
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization")
+		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Cache-Control, Content-Language, Content-Type, Content-Disposition")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		method := c.Request.Method
+		if method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusOK)
+		} else {
+			c.Next()
+		}
+	}
+}
+
 func main() {
 	router := gin.Default()
-	router.LoadHTMLGlob("template/html/*")
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"name": "shay",
-		})
-	})
+	router.Use(Cors())
+	router.StaticFS("/devops", http.Dir("./dist"))
+	// router.LoadHTMLGlob("template/html/*")
+	// router.GET("/", func(c *gin.Context) {
+	// 	c.HTML(http.StatusOK, "index.tmpl", gin.H{
+	// 		"name": "shay",
+	// 	})
+	// })
 	api := router.Group("/api")
 	{
 		api.GET("/group/hub", handler.GroupDockerHandler)
@@ -29,7 +51,7 @@ func main() {
 
 	//优雅关停
 	srv := &http.Server{
-		Addr:    ":3001",
+		Addr:    ":8080",
 		Handler: router,
 	}
 	go func() {

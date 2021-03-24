@@ -27,18 +27,16 @@ func GroupProjectHandler(c *gin.Context) {
 }
 
 func GennerateHandler(c *gin.Context) {
-	r := ResultNew()
 	var json DevOps
 	if err := c.ShouldBindJSON(&json); err != nil {
-		r = ResultError(401, err.Error())
+		c.JSON(http.StatusOK, ResultError(401, err.Error()))
 	} else {
 		dir := fmt.Sprintf("template/%s", json.Type)
-		temp := fmt.Sprintf("_temp/%s_%d", json.Type, rand.Int31())
-		r.Message = temp
+		temp := fmt.Sprintf("_temp/%s_%s_%d", json.Type, json.Workload, rand.Int31())
 		// copy(dir, temp, json)
 		zip_path, err := zipTemplate(dir, temp, json)
 		if err != nil {
-			r = ResultError(500, err.Error())
+			c.JSON(http.StatusOK, ResultError(500, err.Error()))
 		} else {
 			c.FileAttachment(zip_path, path.Base(zip_path))
 		}

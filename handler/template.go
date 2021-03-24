@@ -72,9 +72,12 @@ func copy(source, dest string, config DevOps) {
 }
 
 func zipTemplate(source, dest string, config DevOps) (string, error) {
-	path := fmt.Sprintf("%s.zip", dest)
-	log.Printf("zip path: %s", path)
-	file, err := os.Create(path)
+	zipPath := fmt.Sprintf("%s.zip", dest)
+	if zipDir := path.Dir(zipPath); !pathExists(zipDir) {
+		os.MkdirAll(zipDir, 0666)
+	}
+	log.Printf("zip path: %s", zipPath)
+	file, err := os.Create(zipPath)
 	if err != nil {
 		return "", err
 	}
@@ -86,7 +89,7 @@ func zipTemplate(source, dest string, config DevOps) (string, error) {
 		log.Printf("zip template err:%s", err.Error())
 		return "", err
 	}
-	return path, nil
+	return zipPath, nil
 }
 
 func zipFile(source, prefix string, writer *zip.Writer, config DevOps) error {
