@@ -2,27 +2,28 @@ package handler
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"path"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/yaml.v2"
 )
 
-func GroupDockerHandler(c *gin.Context) {
-	groups := make(map[string]string)
-	groups["community"] = "智慧社区"
-	groups["i-town"] = "智慧城市"
-	groups["hainan"] = "海南环岛"
-	groups["d-net"] = "数据通信"
-	groups["idc"] = "IDC业务"
-	groups["yzworld"] = "云智天下"
-	groups["yzcloud"] = "云智云"
-	c.JSON(http.StatusOK, ResultSucc(groups))
-}
-
-func GroupProjectHandler(c *gin.Context) {
+func GroupstHandler(c *gin.Context) {
 	r := ResultNew()
+	config := AppConfig{}
+	data, err := ioutil.ReadFile("./config.yml")
+	if err == nil {
+		err = yaml.Unmarshal(data, &config)
+		if err == nil {
+			r = ResultSucc(config)
+		} else {
+			r.Code = 500
+			r.Message = "配置文件格式异常"
+		}
+	}
 	c.JSON(http.StatusOK, r)
 }
 

@@ -44,8 +44,7 @@ func main() {
 	// })
 	api := router.Group("/api")
 	{
-		api.GET("/group/hub", handler.GroupDockerHandler)
-		api.GET("/group/project", handler.GroupProjectHandler)
+		api.GET("/group", handler.GroupstHandler)
 		api.POST("/devops", handler.GennerateHandler)
 	}
 

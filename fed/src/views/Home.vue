@@ -40,6 +40,7 @@
         </a-form-item>
         <a-form-item label="镜像仓库">
           <a-select
+            @change="handleGroupChange"
             v-decorator="[
               'imageGroup',
               {
@@ -51,8 +52,8 @@
             ]"
           >
             <a-select-option value="">-- 请选择 --</a-select-option>
-            <a-select-option v-for="(name, value) in dockers" :key="value">
-              {{ name }}
+            <a-select-option v-for="item in groups" :key="item.key">
+              {{ item.name }}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -87,8 +88,8 @@
             ]"
           >
             <a-select-option value="">-- 请选择 --</a-select-option>
-            <a-select-option v-for="(name, value) in projects" :key="value">
-              {{ name }}
+            <a-select-option v-for="item in projects" :key="item.key">
+              {{ item.name }}
             </a-select-option>
           </a-select>
         </a-form-item>
@@ -159,28 +160,8 @@ export default {
           sm: { span: 16 },
         },
       },
-      dockers: {
-        community: "智慧社区",
-        "i-town": "智慧城市",
-        hainan: "海南环岛",
-        "d-net": "数据通信",
-        idc: "IDC业务",
-        yzworld: "云智天下",
-        yzcloud: "云智云",
-      },
-      projects: {
-        "ztj-test": "西派宸樾",
-        "hainan-test": "海南环岛",
-        "i-town-test": "智慧城市",
-        "idc-test": "IDC项目",
-        "bus-test": "智能公交项目",
-        "community-test": "智慧社区项目",
-        "wgyx-test": "网格营销项目",
-        "net-flow-test": "数据流量项目",
-        "minsheng-test": "民生银行项目",
-        "internal-system-test": "内部管理项目",
-        "business-center-test": "业务中台项目",
-      },
+      groups: [],
+      projects: [],
       gitReg:
         "^https?:\\/\\/gitlab.yunzhicloud.com\\/(?<group>[^\\/]+)\\/(?<name>[^\\.]{2,})(\\.git)?$",
     }
@@ -188,10 +169,27 @@ export default {
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: "devops_form" })
   },
+  mounted() {
+    this.initGroups()
+  },
   methods: {
+    initGroups() {
+      request.get("group").then((json) => {
+        this.groups = json.data.groups
+        this.projects = []
+      })
+    },
     validateGit(value) {
       var reg = new RegExp(this.gitReg, "ig")
       return reg.test(value)
+    },
+    handleGroupChange(e) {
+      for (var i = 0; i < this.groups.length; i++) {
+        const group = this.groups[i]
+        if (group.key === e) {
+          this.projects = group.projects
+        }
+      }
     },
     handleImageChagne(e) {
       var workload = this.form.getFieldValue("workload")

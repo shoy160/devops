@@ -26,7 +26,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     try {
-      console.log(response)
+      // console.log(response)
       if (response.config.responseType === "blob") {
         const blob = new Blob([response.data], {
           type: response.headers["content-type"],
@@ -52,7 +52,7 @@ request.interceptors.response.use(
         return {}
       }
       var res = response.data
-      if (!res.success) {
+      if (!res.status) {
         //错误码处理
         message.error({
           content: res.message,

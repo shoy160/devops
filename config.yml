@@ -1,21 +1,46 @@
-devops:
-  dockers:
-    - key: community
-      value: 智慧社区
-    - key: i-town
-      value: 智慧城市
-    - key: hainan
-      value: 海南环岛
-    - key: d-net
-      value: 数据通信
-    - key: idc
-      value: IDC业务
-    - key: yzworld
-      value: 云智天下
-    - key: yzcloud
-      value: 云智云
-  projects:
-    - key: ztj-test
-      value: 中铁建
-    - key: ztj-test
-      value: 中铁建
+groups:
+  - key: community
+    name: 智慧社区
+    projects:
+      - key: ztj-test
+        name: 西派宸樾
+      - key: community-test
+        name: 智慧社区项目
+  - key: i-town
+    name: 智慧城市
+    projects:
+      - key: i-town-test
+        name: 智慧城市
+      - key: wgyx-test
+        name: 网格营销项目
+      - key: incubator
+        name: 智慧城市孵化项目
+      - key: bus-test
+        name: 智能公交项目
+      - key: minsheng-test
+        name: 民生银行项目
+  - key: hainan
+    name: 海南环岛
+    projects:
+      - key: hainan-test
+        name: 海南环岛
+  - key: d-net
+    name: 数据通信
+    projects:
+      - key: net-flow-test
+        name: 数据流量项目
+  - key: idc
+    name: IDC业务
+    projects:
+      - key: idc-test
+        name: IDC项目
+  - key: yzworld
+    name: 云智天下
+    projects:
+      - key: internal-system-test
+        name: 内部管理项目
+  - key: yzcloud
+    name: 云智云
+    projects:
+      - key: business-center-test
+        name: 业务中台项目
